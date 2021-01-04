@@ -51,6 +51,26 @@ ChangeClasses <- function(df) {
   return(df)
 }
 
+IdentifyDuplicates <- function(df) {
+  # Determine which compounds are detected in both positive and negative HILIC runs.
+  # 
+  # Args
+  #   df: MSDial or Skyline dataframe in long form.
+  # 
+  # Returns
+  #   duplicates: Simple dataframe of listed compounds that have been identified as duplicates.
+  #
+  duplicates <- df %>%
+    group_by(Metabolite.Name, Replicate.Name) %>%
+    mutate(number = 1) %>%
+    mutate(ticker = cumsum(number)) %>%
+    filter(ticker == 2) %>%
+    ungroup() %>%
+    select(Metabolite.Name) %>%
+    unique()
+  return(duplicates)
+}
+
 IdentifyRunTypes <- function(msdial.file) {
   # Identify run typfes and return each unique value present in the Skyline output.
   #

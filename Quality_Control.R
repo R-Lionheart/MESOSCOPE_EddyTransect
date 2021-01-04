@@ -6,7 +6,7 @@ RT.flex    <- 0.4
 blk.thresh <- 0.3
 SN.min     <- 4
 
-pattern = "combined"
+pattern = "combined_2020"
 
 
 # Import QC'd files and clean parameter data ----------------------------

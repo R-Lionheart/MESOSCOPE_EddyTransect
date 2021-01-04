@@ -33,6 +33,10 @@ HILIC.QC <- assign(make.names(filename), read.csv(filepath, stringsAsFactors = F
   mutate(Replicate.Name = Replicate.Name %>%
            str_replace("-",".")) 
 
+## THIS NEEDS TO BE CHECKED ON, WAS ADDED FOR 08/26/20 DUPLICATES CHECK
+HILICS.duplicates <- IdentifyDuplicates(HILIC.QC) %>%
+  filter(!Metabolite.Name == "Inosine")
+
 # Match QC'd HILIC data with Internal Standards list -----------------------------------------------------------------
 HILIC.withIS <- HILIC.QC %>%
   filter(Metabolite.name %in% Internal.Standards$Metabolite.name)
